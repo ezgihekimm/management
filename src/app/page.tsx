@@ -15,7 +15,7 @@ export default function Home() {
         id: 1233423,
         name: 'Task1',
         description:
-          'Bu örnek görevdir. Örnek görevin içeriğine dair açıklama detail’da bulunmaktadır.',
+          'Bu örnek görevdir. Örnek görevin içeriğine dair açıklama detail’da bulunmaktadır. lorem ipsum dolor sit amet',
         startDate: '2024.08.01',
         endDate: '2024.08.05',
         flagId: 1,
