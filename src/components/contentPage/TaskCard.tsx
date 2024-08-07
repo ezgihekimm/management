@@ -1,4 +1,7 @@
+'use client'
 import Image from 'next/image'
+import { useState } from 'react'
+import PopUp from '../popUp/PopUp'
 
 interface TaskProps {
   task: {
@@ -12,18 +15,29 @@ interface TaskProps {
 }
 function TaskCard(props: TaskProps) {
   const { task } = props
+  const [isPopupOpen, setIsPopupOpen] = useState(false)
+
+  const openPopup = () => {
+    setIsPopupOpen(true)
+  }
+
+  const closePopup = () => {
+    setIsPopupOpen(false)
+  }
+
   const getFlagColor = (id: number) => {
     switch (id) {
       case 1:
-        return '#057647' // Örnek renk: kırmızı
+        return '#057647'
       case 2:
-        return '#6840c6' // Örnek renk: yeşil
+        return '#6840c6'
       case 3:
-        return '#f38743' // Örnek renk: mavi
+        return '#f38743'
       default:
-        return '#f38743' // Varsayılan renk
+        return '#f38743'
     }
   }
+
   const textColor = getFlagColor(task.flagId)
   const flagSrc =
     task.flagId === 1
@@ -33,7 +47,10 @@ function TaskCard(props: TaskProps) {
         : '/assets/flag3.svg'
 
   return (
-    <div className="flex flex-col rounded-[6px] border-[1px] border-[#eaecf0] p-3">
+    <div
+      className="flex flex-col rounded-[6px] border-[1px] border-[#eaecf0] p-3"
+      onClick={openPopup}
+    >
       <div className="text-xs font-medium" style={{ color: textColor }}>
         {task.name}
       </div>
@@ -51,6 +68,7 @@ function TaskCard(props: TaskProps) {
         <div className="text-[11px] text-[#98a1b2]">Milestone Name</div>
         <Image src={flagSrc} alt="" width={16} height={16} />
       </div>
+      {isPopupOpen && <PopUp task={task} onClose={closePopup} />}
     </div>
   )
 }

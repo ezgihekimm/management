@@ -12,11 +12,12 @@ export default function Home() {
     order: 1,
     tasks: [
       {
-        id: 1,
+        id: 1233423,
         name: 'Task1',
-        description: 'Description for Task1',
-        startDate: '2024-08-01',
-        endDate: '2024-08-05',
+        description:
+          'Bu örnek görevdir. Örnek görevin içeriğine dair açıklama detail’da bulunmaktadır.',
+        startDate: '2024.08.01',
+        endDate: '2024.08.05',
         flagId: 1,
       },
       {
