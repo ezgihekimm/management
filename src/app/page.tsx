@@ -8,18 +8,20 @@ import SideBar from '@/components/SideBar'
 import { getBoards } from '@/services/getBoards'
 import { useAppSelector } from '@/store/hooks'
 import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 import Header from '../components/Header'
 
 export default function Home() {
   const router = useRouter()
   const user = useAppSelector((state) => state.auth)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     if (!user.token) {
-      router.push('/login')
+      return router.push('/login')
     }
+    setLoading(false)
   }, [user, router])
 
   const boardResponse = useQuery('boards', getBoards)
@@ -27,6 +29,10 @@ export default function Home() {
 
   const refetchBoards = () => {
     boardResponse.refetch()
+  }
+
+  if (loading) {
+    return <div>Loading...</div>
   }
 
   return (
