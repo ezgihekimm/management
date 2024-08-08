@@ -1,27 +1,28 @@
 'use client'
-import { Task } from '@/services/types'
+import { BoardType } from '@/services/types'
 import Image from 'next/image'
 import { useState } from 'react'
+import CreateTask from './CreateTask'
 import TaskCard from './TaskCard'
 
-interface BoardProps {
-  id: number
-  order: number
-  name: string | null
-  tasks: Task[]
+interface BoardProps extends BoardType {
+  refetchBoards: () => void
 }
 function Board(props: BoardProps) {
-  const { name, tasks } = props
+  const { id, name, tasks, refetchBoards } = props
   const [isAddingTask, setIsAddingTask] = useState(false)
-
-  const [newTaskName, setNewTaskName] = useState('')
 
   const handleAddTaskClick = () => {
     setIsAddingTask(true)
   }
 
+  const handleTaskCreate = () => {
+    setIsAddingTask(false)
+    refetchBoards()
+  }
+
   return tasks.length > 0 ? (
-    <div className="w-[287px] min-w-[287px] rounded-xl border-[1px] border-[#eaecf0] bg-white">
+    <div className="flex w-[287px] min-w-[287px] flex-col rounded-xl border-[1px] border-[#eaecf0] bg-white">
       <div className="flex flex-col">
         <div className="flex flex-row justify-between border-b-[1px] border-[#eaecf0] px-4 py-[18px]">
           <div className="flex flex-row items-center">
@@ -43,44 +44,12 @@ function Board(props: BoardProps) {
           </div>
         </div>
         {isAddingTask && (
-          <div className="mx-1 my-1 flex flex-col items-start gap-1 rounded-[6px] border-[1px] border-[#eaecf0] px-2 py-2">
-            <input
-              type="text"
-              className="flex-grow rounded-md border-[1px] border-[#eaecf0] p-1 text-xs"
-              placeholder="Name"
-              value={newTaskName}
-            />
-            <input
-              type="text"
-              className="flex-grow rounded-md border-[1px] border-[#eaecf0] p-1 text-xs"
-              placeholder="Description"
-            />
-            <div className="flex flex-row gap-1">
-              <input
-                type="text"
-                className="w-24 flex-grow rounded-md border-[1px] border-[#eaecf0] p-1 text-xs"
-                placeholder="Start date"
-              />
-              <input
-                type="text"
-                className="w-24 flex-grow rounded-md border-[1px] border-[#eaecf0] p-1 text-xs"
-                placeholder="End date"
-              />
-            </div>
-            <select className="w-24 flex-grow rounded-md border-[1px] border-[#eaecf0] p-1 text-xs">
-              <option value="1">Flag 1</option>
-              <option value="2">Flag 2</option>
-              <option value="3">Flag 3</option>
-            </select>
-            <button className="rounded-md bg-[#4e5aa6] px-4 py-1 text-sm text-white">
-              Add
-            </button>
-          </div>
+          <CreateTask boardId={id} onSuccess={handleTaskCreate} />
         )}
       </div>
-      <div className="m-[5px] flex max-h-[300px] flex-col gap-[6px] overflow-y-auto pb-10 sm:max-h-[400px] md:max-h-[500px] lg:max-h-[600px]">
+      <div className="m-[5px] flex min-h-1 flex-1 flex-col gap-[6px] overflow-y-scroll pb-10">
         {tasks.map((task) => (
-          <TaskCard key={task.id} task={task} />
+          <TaskCard key={task.id} task={task} refetchBoards={refetchBoards} />
         ))}
       </div>
     </div>
@@ -107,39 +76,7 @@ function Board(props: BoardProps) {
           </div>
         </div>
         {isAddingTask && (
-          <div className="mx-1 my-1 flex flex-col items-start gap-1 rounded-[6px] border-[1px] border-[#eaecf0] px-2 py-2">
-            <input
-              type="text"
-              className="flex-grow rounded-md border-[1px] border-[#eaecf0] p-1 text-xs"
-              placeholder="Name"
-              value={newTaskName}
-            />
-            <input
-              type="text"
-              className="flex-grow rounded-md border-[1px] border-[#eaecf0] p-1 text-xs"
-              placeholder="Description"
-            />
-            <div className="flex flex-row gap-1">
-              <input
-                type="text"
-                className="w-24 flex-grow rounded-md border-[1px] border-[#eaecf0] p-1 text-xs"
-                placeholder="Start date"
-              />
-              <input
-                type="text"
-                className="w-24 flex-grow rounded-md border-[1px] border-[#eaecf0] p-1 text-xs"
-                placeholder="End date"
-              />
-            </div>
-            <select className="w-24 flex-grow rounded-md border-[1px] border-[#eaecf0] p-1 text-xs">
-              <option value="1">Flag 1</option>
-              <option value="2">Flag 2</option>
-              <option value="3">Flag 3</option>
-            </select>
-            <button className="rounded-md bg-[#4e5aa6] px-4 py-1 text-sm text-white">
-              Add
-            </button>
-          </div>
+          <CreateTask boardId={id} onSuccess={handleTaskCreate} />
         )}
       </div>
 

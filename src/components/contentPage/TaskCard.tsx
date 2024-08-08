@@ -1,23 +1,39 @@
 'use client'
 
-import { Task } from '@/services/types'
+import { deleteTask } from '@/services/deleteTask'
+import { TaskType } from '@/services/types'
 import Image from 'next/image'
 import { useState } from 'react'
 import PopUp from '../popUp/PopUp'
 
 interface TaskProps {
-  task: Task
+  task: TaskType
+  refetchBoards: () => void
 }
 function TaskCard(props: TaskProps) {
-  const { task } = props
+  const { task, refetchBoards } = props
   const [isPopupOpen, setIsPopupOpen] = useState(false)
 
-  const openPopup = () => {
+  const handleOpenPopup = () => {
     setIsPopupOpen(true)
   }
 
-  const closePopup = () => {
+  const handleClosePopup = () => {
     setIsPopupOpen(false)
+  }
+
+  const handleDelete = async (id: number) => {
+    try {
+      const response = await deleteTask(id)
+      if (response.status) {
+        alert('Task deleted')
+        handleClosePopup()
+        return refetchBoards()
+      }
+      throw new Error()
+    } catch (error) {
+      alert('Failed to create task')
+    }
   }
 
   const getFlagColor = (id: number) => {
@@ -45,7 +61,7 @@ function TaskCard(props: TaskProps) {
     <>
       <div
         className="flex flex-col rounded-[6px] border-[1px] border-[#eaecf0] p-3"
-        onClick={openPopup}
+        onClick={handleOpenPopup}
       >
         <div className="text-xs font-medium" style={{ color: textColor }}>
           {task.name}
@@ -65,7 +81,9 @@ function TaskCard(props: TaskProps) {
           <Image src={flagSrc} alt="" width={16} height={16} />
         </div>
       </div>
-      {isPopupOpen && <PopUp task={task} onClose={closePopup} />}
+      {isPopupOpen && (
+        <PopUp task={task} onClose={handleClosePopup} onDelete={handleDelete} />
+      )}
     </>
   )
 }

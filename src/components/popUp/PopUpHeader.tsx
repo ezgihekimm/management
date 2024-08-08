@@ -2,10 +2,11 @@ import Image from 'next/image'
 
 interface PopUpHeaderProps {
   onClose: () => void
+  onDelete: () => void
 }
 
 function PopUpHeader(props: PopUpHeaderProps) {
-  const { onClose } = props
+  const { onClose, onDelete } = props
   return (
     <div className="flex w-[1140px] flex-row justify-between border-b-[1px] border-[#eaecf0] px-5 py-5">
       <div className="flex flex-row">
@@ -50,13 +51,15 @@ function PopUpHeader(props: PopUpHeaderProps) {
         </div>
       </div>
       <div className="flex flex-row gap-6">
-        <Image
-          src="/assets/dots-horizontal.svg"
-          alt=""
-          width={20}
-          height={20}
-          className="cursor-pointer"
-        />
+        <div onClick={onDelete} className="cursor-pointer">
+          <Image
+            src="/assets/dots-horizontal.svg"
+            alt=""
+            width={20}
+            height={20}
+            className="cursor-pointer"
+          />
+        </div>
         <Image
           src="/assets/share.svg"
           alt=""

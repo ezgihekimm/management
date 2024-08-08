@@ -7,7 +7,7 @@ function NavigationTab() {
 
   return (
     <div className="flex pb-6 pt-6">
-      <div className="rounded-lg border-[1px] border-[#d0d5dd] bg-white py-2 text-sm font-medium text-[#344054]">
+      <div className="no-scrollbar overflow-scroll rounded-lg border-[1px] border-[#d0d5dd] bg-white py-2 text-sm font-medium text-[#344054]">
         <a
           className={`border-r-[1px] border-[#d0d5dd] px-4 py-2 ${
             activeTab === 'boards' ? 'font-semibold text-[#145389]' : ''

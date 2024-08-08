@@ -1,16 +1,17 @@
-import { Task } from '@/services/types'
+import { TaskType } from '@/services/types'
 import Activity from './Activity'
 import ActivityBar from './ActivityBar'
 import PopUpHeader from './PopUpHeader'
 import TabBar from './TabBar'
 import TaskDetail from './TaskDetail'
 interface PopUpProps {
-  task: Task
+  task: TaskType
   onClose: () => void
+  onDelete: (id: number) => void
 }
 
 function PopUp(props: PopUpProps) {
-  const { task, onClose } = props
+  const { task, onClose, onDelete } = props
 
   const handleClickOutside = (event: React.MouseEvent<HTMLDivElement>) => {
     if (event.target === event.currentTarget) {
@@ -25,7 +26,7 @@ function PopUp(props: PopUpProps) {
     >
       <div className="rounded-[6px] bg-white">
         <div className="flex">
-          <PopUpHeader onClose={onClose} />
+          <PopUpHeader onClose={onClose} onDelete={() => onDelete(task.code)} />
         </div>
         <div className="flex flex-row justify-between">
           <div className="px-12 py-8">

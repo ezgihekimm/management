@@ -15,6 +15,7 @@ export const getBoards = async () => {
     const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + 'boards', {
       headers: {
         Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
       },
     })
     const data = schema.safeParse(await response.json())

@@ -1,7 +1,7 @@
-import { Task } from '@/services/types'
+import { TaskType } from '@/services/types'
 import Image from 'next/image'
 interface TaskDetailProps {
-  task: Task
+  task: TaskType
 }
 
 function TaskDetail(props: TaskDetailProps) {

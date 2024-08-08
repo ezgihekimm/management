@@ -27,6 +27,7 @@ export const updateTask = async (id: number, payload: UpdateTaskRequest) => {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(payload),
       },

@@ -25,28 +25,26 @@ export default function Home() {
   const boardResponse = useQuery('boards', getBoards)
   const boardData = boardResponse.data?.data
 
+  const refetchBoards = () => {
+    boardResponse.refetch()
+  }
+
   return (
-    <div className="flex h-screen w-screen flex-col">
+    <div className="h-screen max-h-screen min-h-[600px] w-screen overflow-hidden">
       <Header />
-      <div className="flex flex-1 flex-row">
-        <div className="flex flex-col">
+      <div className="flex h-[calc(100%-60px)] flex-row overflow-hidden">
+        <div className="hidden sm:flex">
           <NavBar />
         </div>
-        <div className="flex">
+        <div className="hidden md:flex">
           <SideBar />
         </div>
-        <div className="flex-1 bg-[#F3F6FD] px-6 py-5">
+        <div className="flex min-w-1 flex-1 flex-col bg-[#F3F6FD] px-6 py-5">
           <ContentHeader />
           <NavigationTab />
-          <div className="max-w-800 flex gap-[10px] overflow-x-auto sm:max-w-[900px] md:max-w-[950px] lg:max-w-[1000]">
+          <div className="flex min-h-1 w-full flex-1 gap-[10px] overflow-y-hidden overflow-x-scroll">
             {boardData?.map((board) => (
-              <Board
-                key={board.id}
-                id={board.id}
-                name={board.name}
-                order={board.order}
-                tasks={board.tasks}
-              />
+              <Board key={board.id} refetchBoards={refetchBoards} {...board} />
             ))}
           </div>
         </div>

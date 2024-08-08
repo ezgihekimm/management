@@ -16,7 +16,7 @@ export const taskSchema = z.object({
   deletedAt: z.string().nullable(),
   deletedUserId: z.number().nullable(),
 })
-export type Task = z.infer<typeof taskSchema>
+export type TaskType = z.infer<typeof taskSchema>
 
 export const boardSchema = z.object({
   id: z.number(),
@@ -29,7 +29,7 @@ export const boardSchema = z.object({
   deletedAt: z.string().nullable(),
   tasks: z.array(taskSchema),
 })
-export type Board = z.infer<typeof boardSchema>
+export type BoardType = z.infer<typeof boardSchema>
 
 export const userSchema = z.object({
   id: z.number(),
@@ -37,7 +37,7 @@ export const userSchema = z.object({
   email: z.string(),
   token: z.string(),
 })
-export type User = z.infer<typeof userSchema>
+export type UserType = z.infer<typeof userSchema>
 
 export const flagSchema = z.object({
   id: z.number(),
@@ -45,4 +45,4 @@ export const flagSchema = z.object({
   color: z.string(),
   priority: z.number(),
 })
-export type Flag = z.infer<typeof flagSchema>
+export type FlagType = z.infer<typeof flagSchema>

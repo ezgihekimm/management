@@ -2,7 +2,7 @@ import Image from 'next/image'
 
 function ContentHeader() {
   return (
-    <div className="flex flex-1 flex-row justify-between">
+    <div className="flex flex-row justify-between">
       <div className="text-[22px] font-semibold text-[#145389]">
         Frontend Case
       </div>
