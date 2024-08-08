@@ -29,23 +29,30 @@ export default function Login() {
   }
 
   return (
-    <div className="flex h-full w-full items-center justify-center">
-      <div className="mt-16 flex w-96 flex-col">
-        <h1>Login</h1>
-        <form onSubmit={handleLogin} className="flex flex-col">
+    <div className="flex h-screen flex-col items-center justify-center bg-[#F9FAFB]">
+      <h1 className="mb-5 text-3xl font-medium text-[#145389]">KargaKarga</h1>
+      <div className="flex w-96 flex-col rounded-[6px] border-[1px] border-[#eaecf0] bg-white px-10 py-20">
+        <form onSubmit={handleLogin} className="flex flex-col gap-5">
           <input
             type="email"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            className="rounded-lg border-[1px] border-[#eaecf0] px-3 py-2"
           />
           <input
             type="password"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            className="rounded-lg border-[1px] border-[#eaecf0] px-3 py-2"
           />
-          <button type="submit">Login</button>
+          <button
+            type="submit"
+            className="rounded-lg bg-[#145389] p-1 text-white"
+          >
+            Login
+          </button>
         </form>
       </div>
     </div>
