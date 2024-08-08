@@ -1,5 +1,5 @@
 function Activity() {
-  return <div>mesaj</div>
+  return <div></div>
 }
 
 export default Activity
