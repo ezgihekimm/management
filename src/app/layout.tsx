@@ -1,6 +1,7 @@
 import { inter, poppins } from '@/helpers/font'
 import type { Metadata } from 'next'
 import './globals.css'
+import Providers from './providers'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -15,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins.className} ${inter.className}`}>
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   )

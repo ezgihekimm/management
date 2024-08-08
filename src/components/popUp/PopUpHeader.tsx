@@ -1,5 +1,11 @@
 import Image from 'next/image'
-function PopUpHeader() {
+
+interface PopUpHeaderProps {
+  onClose: () => void
+}
+
+function PopUpHeader(props: PopUpHeaderProps) {
+  const { onClose } = props
   return (
     <div className="flex w-[1140px] flex-row justify-between border-b-[1px] border-[#eaecf0] px-5 py-5">
       <div className="flex flex-row">
@@ -49,10 +55,25 @@ function PopUpHeader() {
           alt=""
           width={20}
           height={20}
+          className="cursor-pointer"
         />
-        <Image src="/assets/share.svg" alt="" width={20} height={20} />
-        <Image src="/assets/star.svg" alt="" width={20} height={20} />
-        <Image src="/assets/close.svg" alt="close" width={20} height={20} />
+        <Image
+          src="/assets/share.svg"
+          alt=""
+          width={20}
+          height={20}
+          className="cursor-pointer"
+        />
+        <Image
+          src="/assets/star.svg"
+          alt=""
+          width={20}
+          height={20}
+          className="cursor-pointer"
+        />
+        <div onClick={onClose} className="cursor-pointer">
+          <Image src="/assets/close.svg" alt="close" width={20} height={20} />
+        </div>
       </div>
     </div>
   )

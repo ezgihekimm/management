@@ -1,43 +1,30 @@
+'use client'
+
 import Board from '@/components/contentPage/Board'
 import ContentHeader from '@/components/contentPage/ContentHeader'
 import NavigationTab from '@/components/contentPage/NavigationTab'
 import NavBar from '@/components/NavBar'
 import SideBar from '@/components/SideBar'
+import { getBoards } from '@/services/getBoards'
+import { useAppSelector } from '@/store/hooks'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
+import { useQuery } from 'react-query'
 import Header from '../components/Header'
+
 export default function Home() {
-  const boardData = {
-    id: 1,
-    title: 'OPEN',
-    count: 3,
-    order: 1,
-    tasks: [
-      {
-        id: 1233423,
-        name: 'Task1',
-        description:
-          'Bu örnek görevdir. Örnek görevin içeriğine dair açıklama detail’da bulunmaktadır. lorem ipsum dolor sit amet',
-        startDate: '2024.08.01',
-        endDate: '2024.08.05',
-        flagId: 1,
-      },
-      {
-        id: 2,
-        name: 'Task1',
-        description: 'Description for Task1',
-        startDate: '2024-08-01',
-        endDate: '2024-08-05',
-        flagId: 2,
-      },
-      {
-        id: 3,
-        name: 'Task1',
-        description: 'Description for Task1',
-        startDate: '2024-08-01',
-        endDate: '2024-08-05',
-        flagId: 3,
-      },
-    ],
-  }
+  const router = useRouter()
+  const user = useAppSelector((state) => state.auth)
+
+  useEffect(() => {
+    if (!user.token) {
+      router.push('/login')
+    }
+  }, [user, router])
+
+  const boardResponse = useQuery('boards', getBoards)
+  const boardData = boardResponse.data?.data
+
   return (
     <div className="flex h-screen w-screen flex-col">
       <Header />
@@ -52,27 +39,15 @@ export default function Home() {
           <ContentHeader />
           <NavigationTab />
           <div className="max-w-800 flex gap-[10px] overflow-x-auto sm:max-w-[900px] md:max-w-[950px] lg:max-w-[1000]">
-            <Board
-              name={boardData.title}
-              count={boardData.count}
-              id={boardData.id}
-              order={boardData.order}
-              tasks={boardData.tasks}
-            />
-            <Board
-              name={boardData.title}
-              count={boardData.count}
-              id={boardData.id}
-              order={boardData.order}
-              tasks={boardData.tasks}
-            />
-            <Board
-              name={boardData.title}
-              count={boardData.count}
-              id={boardData.id}
-              order={boardData.order}
-              tasks={boardData.tasks}
-            />
+            {boardData?.map((board) => (
+              <Board
+                key={board.id}
+                id={board.id}
+                name={board.name}
+                order={board.order}
+                tasks={board.tasks}
+              />
+            ))}
           </div>
         </div>
       </div>

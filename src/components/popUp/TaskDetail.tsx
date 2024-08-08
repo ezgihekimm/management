@@ -1,13 +1,7 @@
+import { Task } from '@/services/types'
 import Image from 'next/image'
 interface TaskDetailProps {
-  task: {
-    id: number
-    name: string | null
-    description: string | null
-    startDate: string | null
-    endDate: string | null
-    flagId: number
-  }
+  task: Task
 }
 
 function TaskDetail(props: TaskDetailProps) {
@@ -26,7 +20,7 @@ function TaskDetail(props: TaskDetailProps) {
           <div className="flex flex-row gap-5 pb-[10px]">
             <Image src="/assets/task.svg" alt="flag" width={25} height={25} />
             <div className="flex max-w-[410px] text-[22px] font-bold text-[#475467]">
-              {task.description}
+              {task.name}
             </div>
           </div>
           <div className="flex flex-row gap-[6px]">

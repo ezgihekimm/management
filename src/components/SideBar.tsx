@@ -1,7 +1,12 @@
+'use client'
+
+import { useAppSelector } from '@/store/hooks'
 import Image from 'next/image'
 import DropDown from './DropDown'
 
 function SideBar() {
+  const user = useAppSelector((state) => state.auth)
+
   return (
     <div className="flex flex-1 flex-col justify-between border-r-[1px] border-[#eaecf0] px-4 pt-9">
       <div className="flex flex-col">
@@ -20,13 +25,10 @@ function SideBar() {
       <div className="flex flex-row items-start justify-between pb-6 ps-1">
         <div className="flex flex-col">
           <div className="text-[#101828 ]text-sm font-semibold">
-            Olivia Rhye
+            {user.fullName}
           </div>
-          <a
-            href="mailto:olivia@untitledui.com"
-            className="text-sm text-[#475467]"
-          >
-            olivia@untitledui.com
+          <a href={`mailto:${user.email}`} className="text-sm text-[#475467]">
+            {user.email}
           </a>
         </div>
         <button className="rounded-full border-2 border-[#475467] p-2"></button>

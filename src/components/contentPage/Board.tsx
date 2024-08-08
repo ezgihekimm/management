@@ -1,3 +1,4 @@
+import { Task } from '@/services/types'
 import Image from 'next/image'
 import TaskCard from './TaskCard'
 
@@ -5,27 +6,18 @@ interface BoardProps {
   id: number
   order: number
   name: string | null
-  count: number
   tasks: Task[]
 }
-interface Task {
-  id: number
-  name: string | null
-  description: string | null
-  startDate: string | null
-  endDate: string | null
-  flagId: number
-}
-
 function Board(props: BoardProps) {
-  const { name, count, id, order, tasks } = props
+  const { name, tasks } = props
+
   return (
     <div className="w-[287px] min-w-[287px] rounded-xl border-[1px] border-[#eaecf0] bg-white">
       <div className="flex flex-row justify-between border-b-[1px] border-[#eaecf0] px-4 py-[18px]">
         <div className="flex flex-row items-center">
           <div className="pr-2 text-base text-[#4e5aa6]">{name}</div>
           <div className="flex h-4 w-[8px] items-center justify-center rounded-full border-[1px] border-[#b2ddff] bg-[#eff8ff] px-2 py-2 text-xs text-[#175cd3]">
-            {count}
+            {tasks.length}
           </div>
         </div>
         <div className="flex flex-row gap-[10px]">
